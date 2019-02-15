@@ -11,25 +11,30 @@ import chess.MoveResult;
  *
  * @author chadw
  */
-public class King extends Piece {
-    
-    public King(PieceTeam pt)
+public class Queen extends Piece {
+    public Queen(PieceTeam pt)
     {
         super(pt);
+    } 
+    @Override
+    public String toString()
+    {
+        return getTeam() == PieceTeam.White ? "Q": "q" ;
     }
     
     @Override
     protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
+        boolean res = false;
+        if ((rowMovement == colMovement) ||                             
+                (rowMovement == 0 && colMovement != 0) || 
+                (rowMovement != 0 && colMovement == 0)) 
 
-        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1 );
+        {
+            res = true;
+        }        
         return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
     }
-       
-    @Override
-    public String toString()
-    {
-        return getTeam() == PieceTeam.White ? "K": "k" ;
-    }
+
     
 }

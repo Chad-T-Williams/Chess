@@ -11,19 +11,19 @@ import chess.MoveResult;
  *
  * @author chadw
  */
-public class King extends Piece {
-    
-    public King(PieceTeam pt)
+public class Bishop extends Piece
+{
+    public Bishop(PieceTeam pt)
     {
         super(pt);
     }
     
     @Override
     protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
-    {
+    {       
+        return Math.abs(rowMovement) == Math.abs(colMovement) ? 
+                MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
 
-        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1 );
-        return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
     }
        
     @Override

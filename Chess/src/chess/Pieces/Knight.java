@@ -11,25 +11,29 @@ import chess.MoveResult;
  *
  * @author chadw
  */
-public class King extends Piece {
-    
-    public King(PieceTeam pt)
+public class Knight extends Piece {
+ 
+    public Knight(PieceTeam pt)
     {
         super(pt);
-    }
+    }  
     
     @Override
     protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
-
-        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1 );
+        int rabs = Math.abs(rowMovement);
+        int cabs = Math.abs(rowMovement);
+        int highValue = rabs > cabs ? rabs : cabs;
+        int lowValue = rabs < cabs ? rabs : cabs;
+        boolean res = (highValue == 2 && lowValue == 1); 
+        // Knights can only move in L-Shapes.    
         return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
-    }
-       
+    }    
+    
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "K": "k" ;
-    }
+        return getTeam() == PieceTeam.White ? "N": "n" ;
+    }    
     
 }
