@@ -5,31 +5,28 @@
  */
 package chess.Pieces;
 
-import chess.MoveResultEnum;
-
 /**
  *
  * @author chadw
  */
 public class King extends Piece {
-    
-    public King(TeamEnum pt)
-    {
+
+    public King(TeamEnum pt) {
         super(pt, true);
     }
-    
-    @Override
-    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
-    {
 
-        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1 );
+    @Override
+    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
+
+        System.out.println(rowMovement);
+        System.out.println(colMovement);
+        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1);
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
-       
+
     @Override
-    public String toString()
-    {
-        return getTeam() == TeamEnum.White ? "K": "k" ;
+    public String toString() {
+        return getTeam() == TeamEnum.White ? "K" : "k";
     }
-    
+
 }

@@ -5,31 +5,26 @@
  */
 package chess.Pieces;
 
-import chess.MoveResultEnum;
-
 /**
  *
  * @author chadw
  */
-public class Bishop extends Piece
-{
-    public Bishop(TeamEnum pt)
-    {
+public class Bishop extends Piece {
+
+    public Bishop(TeamEnum pt) {
         super(pt, true);
     }
-    
+
     @Override
-    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
-    {       
-        return Math.abs(rowMovement) == Math.abs(colMovement) ? 
-                MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
+    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
+        return Math.abs(rowMovement) == Math.abs(colMovement)
+                ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
 
     }
-       
+
     @Override
-    public String toString()
-    {
-        return getTeam() == TeamEnum.White ? "B": "b" ;
+    public String toString() {
+        return getTeam() == TeamEnum.White ? "B" : "b";
     }
-    
+
 }

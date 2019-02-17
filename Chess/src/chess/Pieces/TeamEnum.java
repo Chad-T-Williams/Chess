@@ -10,18 +10,16 @@ package chess.Pieces;
  * @author chadw
  */
 public enum TeamEnum {
-    White("White"), 
-    Black("Black"), 
+    White("White"),
+    Black("Black"),
     NoTeam("No Team");
     private String pieceTeam;
-    
-    private TeamEnum(String pt)
-    {
+
+    private TeamEnum(String pt) {
         pieceTeam = pt;
     }
-    
-    public String toString()
-    {
+
+    public String toString() {
         return pieceTeam;
     }
 }

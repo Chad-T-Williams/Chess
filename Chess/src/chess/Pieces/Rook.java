@@ -5,35 +5,29 @@
  */
 package chess.Pieces;
 
-import chess.MoveResultEnum;
-
 /**
  *
  * @author chadw
  */
 public class Rook extends Piece {
-    
-    public Rook(TeamEnum pt)
-    {
+
+    public Rook(TeamEnum pt) {
         super(pt, true);
     }
-    
+
     @Override
-    public String toString()
-    {
-        return getTeam() == TeamEnum.White ? "R": "r" ;
+    public String toString() {
+        return getTeam() == TeamEnum.White ? "R" : "r";
     }
-    
+
     @Override
-    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
-    {
+    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
         boolean res = false;
-        if ((rowMovement == 0 && colMovement != 0) || 
-                (rowMovement != 0 && colMovement == 0)){
+        if ((rowMovement == 0 && colMovement != 0)
+                || (rowMovement != 0 && colMovement == 0)) {
             res = true;
-        }        
+        }
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
-    
-    
+
 }

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-import chess.MoveResultEnum;
 
 /**
  *
@@ -34,11 +33,9 @@ public abstract class Piece {
     public MoveResultEnum findMoveResult(int colMovement,int rowMovement, TeamEnum targetTeam)
     {
         
-        if (rowMovement == 0 && colMovement == 0){
+        if (rowMovement == 0 && colMovement == 0) {
             return MoveResultEnum.NoMoveAttempted;
-        }
-        else if (targetTeam == getTeam())
-        {
+        } else if (targetTeam == getTeam()) {
             return MoveResultEnum.TakenOwnPiece;
         }
         boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);

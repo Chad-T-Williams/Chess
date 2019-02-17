@@ -5,8 +5,6 @@
  */
 package chess.Pieces;
 
-import chess.MoveResultEnum;
-
 /**
  *
  * @author chadw

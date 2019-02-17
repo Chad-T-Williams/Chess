@@ -5,6 +5,7 @@
  */
 package chess;
 
+import chess.Pieces.MoveResultEnum;
 import java.util.*;
 
 /**
@@ -38,11 +39,9 @@ public class ChessUI {
             System.out.println(game);
             choice = myIn.next();
             try {
-                if (choice.equals("9")) 
-                {
+                if (choice.equals("9")) {
                     game.startGame();
-                } 
-                else if (!choice.equals("0")) {
+                } else if (!choice.equals("0")) {
                     int[] coords = StringParser.getCoordinates(choice);
                     MoveResultEnum res = game.performMove(coords);
                     if (null != res) {
@@ -86,7 +85,6 @@ public class ChessUI {
             System.out.println();
             System.out.println();
 
-                        
         }
         System.out.println("Thank you for playing this game!");
     }

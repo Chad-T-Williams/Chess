@@ -4,27 +4,24 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-import chess.MoveResultEnum;
+
 /**
  *
  * @author chadw
  */
 public class Empty extends Piece {
-    
-    public Empty()
-    {
+
+    public Empty() {
         super(TeamEnum.NoTeam, false);
     }
-    
+
     @Override
-    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement,  boolean canCapture)
-    {       
+    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
         return MoveResultEnum.SpaceIsEmpty;
     }
-               
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "-";
     }
 }
