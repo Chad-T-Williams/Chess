@@ -12,26 +12,26 @@ import chess.MoveResultEnum;
  */
 public abstract class Piece {
     private final TeamEnum team;
-    private boolean canHopOver;
+    private boolean hasCollision;
     
     public Piece(TeamEnum tm, boolean canSkip)
     {
         team = tm;
-        canHopOver = canSkip;
+        hasCollision = canSkip;
     }
     
-    public boolean getHop()
+    public boolean getCollision()
     {
-        return canHopOver;
+        return hasCollision;
     }
     public TeamEnum getTeam()
     {
         return team;
     }
     
-    protected abstract MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture);
+    protected abstract MoveResultEnum isMoveValid(int colMovement ,int rowMovement, boolean canCapture);
        
-    public MoveResultEnum findMoveResult(int rowMovement, int colMovement, TeamEnum targetTeam)
+    public MoveResultEnum findMoveResult(int colMovement,int rowMovement, TeamEnum targetTeam)
     {
         
         if (rowMovement == 0 && colMovement == 0){
@@ -42,7 +42,7 @@ public abstract class Piece {
             return MoveResultEnum.TakenOwnPiece;
         }
         boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);
-        return isMoveValid(rowMovement, colMovement, canCapture);
+        return isMoveValid(colMovement, rowMovement, canCapture);
         
     }
 }

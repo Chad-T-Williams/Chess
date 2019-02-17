@@ -15,7 +15,7 @@ public class Rook extends Piece {
     
     public Rook(TeamEnum pt)
     {
-        super(pt, false);
+        super(pt, true);
     }
     
     @Override
@@ -25,7 +25,7 @@ public class Rook extends Piece {
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
     {
         boolean res = false;
         if ((rowMovement == 0 && colMovement != 0) || 

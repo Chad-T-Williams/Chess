@@ -15,14 +15,14 @@ public class Knight extends Piece {
  
     public Knight(TeamEnum pt)
     {
-        super(pt, true);
+        super(pt, false);
     }  
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement,int rowMovement, boolean canCapture)
     {
         int rabs = Math.abs(rowMovement);
-        int cabs = Math.abs(rowMovement);
+        int cabs = Math.abs(colMovement);
         int highValue = rabs > cabs ? rabs : cabs;
         int lowValue = rabs < cabs ? rabs : cabs;
         boolean res = (highValue == 2 && lowValue == 1); 

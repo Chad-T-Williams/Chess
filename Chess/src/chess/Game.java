@@ -61,21 +61,26 @@ public class Game {
         {
             return MoveResultEnum.GameOver;
         }
-        int startingX = moveCoords[0];
-        int startingY = moveCoords[1];
-        int endingX = moveCoords[2];
-        int endingY = moveCoords[3];
+        int startRow = moveCoords[0];
+        int startCol = moveCoords[1];
+        int endRow = moveCoords[2];    
+        int endCol = moveCoords[3];
 
-        System.out.println("SX: " + startingX);
-        System.out.println("SY: " + startingY);
-        System.out.println("EX: " + endingX);
-        System.out.println("EY: " + endingY);
+        int moveCol = endCol - startCol;
+        int moveRow = endRow - startRow;   
+
+        Piece startPiece = board[startCol][startRow];
+        Piece targetPiece = board[endCol][endRow];
+        if (startPiece.getCollision())
+        {
+            boolean willCollide = checkCollisionOccurence(startCol,startRow,moveCol,moveRow);
+            if(willCollide)
+            {
+                return MoveResultEnum.AttemptedToSkipOverPiece;
+            }
+        }
+        MoveResultEnum res = startPiece.findMoveResult(moveCol, moveRow, targetPiece.getTeam());
         
-        int xMove = endingX - startingX;
-        int yMove = endingY - startingY;
-        Piece startPiece = board[startingY][startingX];
-        Piece targetPiece = board[endingY][endingX];
-        MoveResultEnum res = startPiece.findMoveResult(xMove, yMove, targetPiece.getTeam());
         if (res != MoveResultEnum.ValidMove)
         {
             return res;
@@ -86,8 +91,8 @@ public class Game {
         }
         else
         {
-            board[startingY][startingX] = new Empty();
-            board[endingY][endingX] = startPiece;    
+            board[startCol][startRow] = new Empty();
+            board[endCol][endRow] = startPiece;    
             if (targetPiece instanceof chess.Pieces.King)
             {
                 gameOver = true;
@@ -98,6 +103,43 @@ public class Game {
             }
         }
         return res;
+    }
+    private boolean checkCollisionOccurence(int startY,int startX, int moveY, int moveX)
+    {
+        // Effectively checks from furthest position and goes inwards.
+        while(true)
+        {
+            if (moveX > 0)
+            {
+                moveX--;
+            }
+            else if (moveX < 0)
+            {
+                moveX++;
+            }
+            if (moveY > 0)
+            {
+                moveY--;
+            }
+            else if (moveY < 0)
+            {
+                moveY++;
+            }
+            System.out.println("StartX: " + startX + ". StartY: " + startY);
+            System.out.println("MoveX: " + moveX + ". MoveY: " + moveY);
+            if (moveY == 0 && moveX == 0){
+                // Don't check start Piece
+                break;
+            }
+            Piece currPiece = board[startY + moveY][startX + moveX];
+            System.out.println(currPiece);
+            if (!(currPiece instanceof chess.Pieces.Empty))
+            {
+                // If the piece we're looking at isn't empty it means we tried to skip over a piece.
+                return true;
+            }
+        }
+        return false;
     }
     public void startGame()
     {
@@ -140,19 +182,18 @@ public class Game {
     {
         String s = "  ";
         String displayChars = "abcdefgh";
-        for (int i = 0; i < boardSize; i++)
+        for (int row = 0; row < boardSize; row++)
         {
-            s += displayChars.charAt(i);
+            s += displayChars.charAt(row);
         }
         s += "\n";
-        for (int j = 0; j < boardSize; j++)
+        for (int col = 0; col < boardSize; col++)
         {
-            s += 8 - j; // As Board Place goes from 8(top) to 1 (bottom);
-
+            s += 8 - col; // As Board Place goes from 8(top) to 1 (bottom);
             s+= " ";
-            for(int k = 0; k < boardSize; k++)
+            for(int row = 0; row < boardSize; row++)
             {
-                s += board[j][k];
+                s += board[col][row];
             }
             s += "\n";
         }

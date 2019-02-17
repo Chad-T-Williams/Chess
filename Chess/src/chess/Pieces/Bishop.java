@@ -15,11 +15,11 @@ public class Bishop extends Piece
 {
     public Bishop(TeamEnum pt)
     {
-        super(pt, false);
+        super(pt, true);
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
     {       
         return Math.abs(rowMovement) == Math.abs(colMovement) ? 
                 MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;

@@ -14,7 +14,7 @@ import chess.MoveResultEnum;
 public class Queen extends Piece {
     public Queen(TeamEnum pt)
     {
-        super(pt, false);
+        super(pt, true);
     } 
     @Override
     public String toString()
@@ -23,7 +23,7 @@ public class Queen extends Piece {
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
     {
         boolean res = false;
         if ((rowMovement == colMovement) ||                             

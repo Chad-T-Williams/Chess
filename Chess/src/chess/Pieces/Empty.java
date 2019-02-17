@@ -17,7 +17,7 @@ public class Empty extends Piece {
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement,  boolean canCapture)
     {       
         return MoveResultEnum.SpaceIsEmpty;
     }

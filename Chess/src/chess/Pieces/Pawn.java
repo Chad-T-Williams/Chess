@@ -16,16 +16,11 @@ public class Pawn extends Piece {
     private boolean hasMoved = false;
     public Pawn(TeamEnum pt)
     {
-        super(pt, false);
-    }
-    
-    public void SetPawnMoved()
-    {
-        hasMoved = true;
+        super(pt, true);
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
     {
         boolean res;       
         TeamEnum tm = getTeam();
@@ -51,8 +46,16 @@ public class Pawn extends Piece {
         else 
         {
             res = (Math.abs(colMovement) == 1 && Math.abs(rowMovement) == 1);
-        }                
-        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
+        }          
+        if (res)
+        {
+            hasMoved = true;
+            return MoveResultEnum.ValidMove;
+        }
+        else
+        {
+            return MoveResultEnum.PieceCannotPerformMove;
+        }
     }    
     
     @Override

@@ -15,11 +15,11 @@ public class King extends Piece {
     
     public King(TeamEnum pt)
     {
-        super(pt, false);
+        super(pt, true);
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
     {
 
         boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1 );
