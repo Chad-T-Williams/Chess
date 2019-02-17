@@ -11,8 +11,9 @@ import chess.Pieces.*;
  */
 public class Game { 
     private final int boardSize = 8;
-    private Piece[][] board = new Piece[boardSize][boardSize];
+    private final Piece[][] board = new Piece[boardSize][boardSize];
     private TeamEnum currentPlayer = TeamEnum.White;
+    
     private boolean gameOver = false;
 
     public Game()
@@ -60,21 +61,30 @@ public class Game {
         {
             return MoveResultEnum.GameOver;
         }
-        int startingX = moveCoords[0] - 1;
-        int startingY = moveCoords[1] - 1;
-        int endingX = moveCoords[2] - 1;
-        int endingY = moveCoords[3] - 1;
+        int startingX = moveCoords[0];
+        int startingY = moveCoords[1];
+        int endingX = moveCoords[2];
+        int endingY = moveCoords[3];
+
+        System.out.println("SX: " + startingX);
+        System.out.println("SY: " + startingY);
+        System.out.println("EX: " + endingX);
+        System.out.println("EY: " + endingY);
         
         int xMove = endingX - startingX;
         int yMove = endingY - startingY;
         Piece startPiece = board[startingY][startingX];
         Piece targetPiece = board[endingY][endingX];
-        if (startPiece.getTeam() != currentPlayer)
+        MoveResultEnum res = startPiece.findMoveResult(xMove, yMove, targetPiece.getTeam());
+        if (res != MoveResultEnum.ValidMove)
+        {
+            return res;
+        }
+        else if (startPiece.getTeam() != currentPlayer)
         {
             return MoveResultEnum.MovedEnemyPiece;
         }
-        MoveResultEnum res = startPiece.findMoveResult(xMove, yMove, targetPiece.getTeam());
-        if (res == MoveResultEnum.ValidMove)
+        else
         {
             board[startingY][startingX] = new Empty();
             board[endingY][endingX] = startPiece;    
@@ -129,14 +139,16 @@ public class Game {
     private String generateBoardString()
     {
         String s = "  ";
+        String displayChars = "abcdefgh";
         for (int i = 0; i < boardSize; i++)
         {
-            s += i+1;
+            s += displayChars.charAt(i);
         }
         s += "\n";
         for (int j = 0; j < boardSize; j++)
         {
-            s += j+1;
+            s += 8 - j; // As Board Place goes from 8(top) to 1 (bottom);
+
             s+= " ";
             for(int k = 0; k < boardSize; k++)
             {

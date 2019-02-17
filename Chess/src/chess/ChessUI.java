@@ -32,8 +32,7 @@ public class ChessUI {
             System.out.println("Enter the number of your choice");
             System.out.println("\t9. To restart the game!");
             System.out.println("\t0. To end the game!");
-            System.out.println("Or: To move a piece enter the starting and ending coordinates like XY-XY");
-            System.out.println("For example to move the piece at column 7, row 1 to column 5, row 1 you'd enter 17-15");
+            System.out.println("Or: To move a piece enter the starting and ending coordinates seperated by a hyphen. Like: A2-A4");
             System.out.println("White's Pieces are represented by capital letters");
             System.out.println();
             System.out.println(game);
