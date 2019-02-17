@@ -4,38 +4,44 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
  * @author chadw
  */
 public abstract class Piece {
-    private final PieceTeam team;
+    private final TeamEnum team;
+    private boolean canHopOver;
     
-    public Piece(PieceTeam tm)
+    public Piece(TeamEnum tm, boolean canSkip)
     {
         team = tm;
+        canHopOver = canSkip;
     }
     
-    public PieceTeam getTeam()
+    public boolean getHop()
+    {
+        return canHopOver;
+    }
+    public TeamEnum getTeam()
     {
         return team;
     }
     
-    protected abstract MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture);
+    protected abstract MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture);
        
-    public MoveResult findMoveResult(int rowMovement, int colMovement, PieceTeam targetTeam)
+    public MoveResultEnum findMoveResult(int rowMovement, int colMovement, TeamEnum targetTeam)
     {
         
         if (rowMovement == 0 && colMovement == 0){
-            return MoveResult.NoMoveAttempted;
+            return MoveResultEnum.NoMoveAttempted;
         }
         else if (targetTeam == getTeam())
         {
-            return MoveResult.TakenOwnPiece;
+            return MoveResultEnum.TakenOwnPiece;
         }
-        boolean canCapture = (targetTeam !=  PieceTeam.NoTeam);
+        boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);
         return isMoveValid(rowMovement, colMovement, canCapture);
         
     }

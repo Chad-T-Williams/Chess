@@ -5,7 +5,7 @@
  */
 package chess.Pieces;
 
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
@@ -13,13 +13,13 @@ import chess.MoveResult;
  */
 public class Knight extends Piece {
  
-    public Knight(PieceTeam pt)
+    public Knight(TeamEnum pt)
     {
-        super(pt);
+        super(pt, true);
     }  
     
     @Override
-    protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
         int rabs = Math.abs(rowMovement);
         int cabs = Math.abs(rowMovement);
@@ -27,13 +27,13 @@ public class Knight extends Piece {
         int lowValue = rabs < cabs ? rabs : cabs;
         boolean res = (highValue == 2 && lowValue == 1); 
         // Knights can only move in L-Shapes.    
-        return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
+        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }    
     
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "N": "n" ;
+        return getTeam() == TeamEnum.White ? "N": "n" ;
     }    
     
 }

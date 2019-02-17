@@ -5,7 +5,7 @@
  */
 package chess.Pieces;
 
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
@@ -13,26 +13,26 @@ import chess.MoveResult;
  */
 public class Rook extends Piece {
     
-    public Rook(PieceTeam pt)
+    public Rook(TeamEnum pt)
     {
-        super(pt);
+        super(pt, false);
     }
     
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "R": "r" ;
+        return getTeam() == TeamEnum.White ? "R": "r" ;
     }
     
     @Override
-    protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
         boolean res = false;
         if ((rowMovement == 0 && colMovement != 0) || 
                 (rowMovement != 0 && colMovement == 0)){
             res = true;
         }        
-        return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
+        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
     
     

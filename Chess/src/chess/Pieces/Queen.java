@@ -5,25 +5,25 @@
  */
 package chess.Pieces;
 
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
  * @author chadw
  */
 public class Queen extends Piece {
-    public Queen(PieceTeam pt)
+    public Queen(TeamEnum pt)
     {
-        super(pt);
+        super(pt, false);
     } 
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "Q": "q" ;
+        return getTeam() == TeamEnum.White ? "Q": "q" ;
     }
     
     @Override
-    protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
         boolean res = false;
         if ((rowMovement == colMovement) ||                             
@@ -33,7 +33,7 @@ public class Queen extends Piece {
         {
             res = true;
         }        
-        return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
+        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
 
     

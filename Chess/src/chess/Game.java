@@ -5,39 +5,19 @@
  */
 package chess;
 import chess.Pieces.*;
-import java.io.*;
-import java.util.*;
 /**
  *
  * @author chadw
  */
 public class Game { 
-    final int boardSize = 8;
+    private final int boardSize = 8;
     private Piece[][] board = new Piece[boardSize][boardSize];
-    private static Scanner myIn = new Scanner(System.in);
+    private TeamEnum currentPlayer = TeamEnum.White;
+    private boolean gameOver = false;
 
     public Game()
     {
-        initialiseBoard();
-    }
-    public void run()
-    {
-        int choice = 100;
-        while (choice != 0)
-        {
-            System.out.println("Enter the number of your choice");
-            System.out.println("\t 1.Print out the current Board");
-            System.out.println("\t 2. ReinitialiseBoard");
-            if (choice == 1)
-            {
-                printBoard();
-            }
-            else if (choice == 2)
-            {
-                initialiseBoard();
-            }
-            choice =  myIn.nextInt();
-        }
+        startGame();
     }
     private void initialiseBoard()
     {
@@ -45,11 +25,11 @@ public class Game {
         {
             if (i == 0)
             {
-                board[i] = setUpSpecialRow(PieceTeam.Black);
+                board[i] = setUpSpecialRow(TeamEnum.Black);
             }
             else if (i== 7)
             {
-                board[i] = setUpSpecialRow(PieceTeam.White);
+                board[i] = setUpSpecialRow(TeamEnum.White);
             }
             else
             {
@@ -57,10 +37,10 @@ public class Game {
                 {
                     switch (i) {
                         case 1:
-                            board[i][j] = new Pawn(PieceTeam.Black);
+                            board[i][j] = new Pawn(TeamEnum.Black);
                             break;
                         case 6:
-                            board[i][j] = new Pawn(PieceTeam.White);
+                            board[i][j] = new Pawn(TeamEnum.White);
                             break;
                         default:
                             board[i][j] = new Empty();
@@ -70,9 +50,53 @@ public class Game {
             }
         }
     }
-    private Piece[] setUpSpecialRow(PieceTeam pt)
+    public TeamEnum getCurrentPlayer()
     {
-        // Unsure of a better soltuion
+        return currentPlayer;
+    }
+    public MoveResultEnum performMove(int[] moveCoords)
+    {
+        if (gameOver)
+        {
+            return MoveResultEnum.GameOver;
+        }
+        int startingX = moveCoords[0] - 1;
+        int startingY = moveCoords[1] - 1;
+        int endingX = moveCoords[2] - 1;
+        int endingY = moveCoords[3] - 1;
+        
+        int xMove = endingX - startingX;
+        int yMove = endingY - startingY;
+        Piece startPiece = board[startingY][startingX];
+        Piece targetPiece = board[endingY][endingX];
+        if (startPiece.getTeam() != currentPlayer)
+        {
+            return MoveResultEnum.MovedEnemyPiece;
+        }
+        MoveResultEnum res = startPiece.findMoveResult(xMove, yMove, targetPiece.getTeam());
+        if (res == MoveResultEnum.ValidMove)
+        {
+            board[startingY][startingX] = new Empty();
+            board[endingY][endingX] = startPiece;    
+            if (targetPiece instanceof chess.Pieces.King)
+            {
+                gameOver = true;
+                res = MoveResultEnum.GameOver;
+            }
+            else{
+                currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black: TeamEnum.White); 
+            }
+        }
+        return res;
+    }
+    public void startGame()
+    {
+        initialiseBoard();
+        currentPlayer = TeamEnum.White;
+        gameOver = false;
+    }
+    private Piece[] setUpSpecialRow(TeamEnum pt)
+    {
         Piece[] row = new Piece[boardSize];
         row[0] = new Rook(pt);
         row[7] = new Rook(pt);
@@ -80,7 +104,7 @@ public class Game {
         row[6] = new Knight(pt);
         row[2] = new Bishop(pt);
         row[5] = new Bishop(pt);
-        if (pt == PieceTeam.White)
+        if (pt == TeamEnum.White)
         {
             row[3] = new Queen(pt);
             row[4] = new King(pt);
@@ -92,23 +116,28 @@ public class Game {
         }
         return row;
     }
-
-    private void printBoard()
+    
+    @Override
+    public String toString()
     {
-        System.out.println(generateBoardString());
-    }
+        String s = "";
+        s += generateBoardString();
+        s += "The current player is: " + currentPlayer + "\n";
+        return s;
+    } 
     
     private String generateBoardString()
     {
-        String s = " ";
+        String s = "  ";
         for (int i = 0; i < boardSize; i++)
         {
-            s += i;
+            s += i+1;
         }
         s += "\n";
         for (int j = 0; j < boardSize; j++)
         {
-            s += j;
+            s += j+1;
+            s+= " ";
             for(int k = 0; k < boardSize; k++)
             {
                 s += board[j][k];

@@ -5,7 +5,7 @@
  */
 package chess.Pieces;
 
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
@@ -13,23 +13,23 @@ import chess.MoveResult;
  */
 public class Bishop extends Piece
 {
-    public Bishop(PieceTeam pt)
+    public Bishop(TeamEnum pt)
     {
-        super(pt);
+        super(pt, false);
     }
     
     @Override
-    protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {       
         return Math.abs(rowMovement) == Math.abs(colMovement) ? 
-                MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
+                MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
 
     }
        
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "K": "k" ;
+        return getTeam() == TeamEnum.White ? "B": "b" ;
     }
     
 }

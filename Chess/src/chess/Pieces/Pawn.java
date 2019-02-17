@@ -5,7 +5,7 @@
  */
 package chess.Pieces;
 
-import chess.MoveResult;
+import chess.MoveResultEnum;
 
 /**
  *
@@ -14,9 +14,9 @@ import chess.MoveResult;
 public class Pawn extends Piece {
     
     private boolean hasMoved = false;
-    public Pawn(PieceTeam pt)
+    public Pawn(TeamEnum pt)
     {
-        super(pt);
+        super(pt, false);
     }
     
     public void SetPawnMoved()
@@ -25,15 +25,15 @@ public class Pawn extends Piece {
     }
     
     @Override
-    protected  MoveResult isMoveValid(int rowMovement, int colMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
         boolean res;       
-        PieceTeam tm = getTeam();
-        if (tm == PieceTeam.White && colMovement >= 0)
+        TeamEnum tm = getTeam();
+        if (tm == TeamEnum.White && colMovement >= 0)
         {
             res = false;
         }
-        else if(tm == PieceTeam.Black && colMovement <= 0 )
+        else if(tm == TeamEnum.Black && colMovement <= 0 )
         {
             res = false;
         }
@@ -52,12 +52,12 @@ public class Pawn extends Piece {
         {
             res = (Math.abs(colMovement) == 1 && Math.abs(rowMovement) == 1);
         }                
-        return res ? MoveResult.ValidMove : MoveResult.PieceCannotPerformMove;
+        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }    
     
     @Override
     public String toString()
     {
-        return getTeam() == PieceTeam.White ? "P": "p" ;
+        return getTeam() == TeamEnum.White ? "P": "p" ;
     }    
 }
