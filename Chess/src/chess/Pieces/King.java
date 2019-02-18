@@ -16,11 +16,8 @@ public class King extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
-
-        System.out.println(rowMovement);
-        System.out.println(colMovement);
-        boolean res = (Math.abs(rowMovement) <= 1 && Math.abs(colMovement) <= 1);
+    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
+        boolean res = (Math.abs(colMovement) <= 1 && Math.abs(rowMovement) <= 1);
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
 

@@ -16,11 +16,11 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
-        int rabs = Math.abs(rowMovement);
+    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
         int cabs = Math.abs(colMovement);
-        int highValue = rabs > cabs ? rabs : cabs;
-        int lowValue = rabs < cabs ? rabs : cabs;
+        int rabs = Math.abs(rowMovement);
+        int highValue = cabs > rabs ? cabs : rabs;
+        int lowValue = cabs < rabs ? cabs : rabs;
         boolean res = (highValue == 2 && lowValue == 1);
         // Knights can only move in L-Shapes.    
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;

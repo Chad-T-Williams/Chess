@@ -59,31 +59,31 @@ public class Game {
         if (gameOver) {
             return MoveResultEnum.GameOver;
         }
-        int startRow = moveCoords[0];
-        int startCol = moveCoords[1];
-        int endRow = moveCoords[2];
-        int endCol = moveCoords[3];
+        int startCol = moveCoords[0];
+        int startRow = moveCoords[1];
+        int endCol = moveCoords[2];
+        int endRow = moveCoords[3];
 
-        int moveCol = endCol - startCol;
         int moveRow = endRow - startRow;
+        int moveCol = endCol - startCol;
 
-        Piece startPiece = board[startCol][startRow];
-        Piece targetPiece = board[endCol][endRow];
+        Piece startPiece = board[startRow][startCol];
+        Piece targetPiece = board[endRow][endCol];
         if (startPiece.getCollision()) {
-            boolean willCollide = checkCollisionOccurence(startCol, startRow, moveCol, moveRow);
+            boolean willCollide = checkCollisionOccurence(startRow, startCol, moveRow, moveCol);
             if (willCollide) {
                 return MoveResultEnum.AttemptedToSkipOverPiece;
             }
         }
-        MoveResultEnum res = startPiece.findMoveResult(moveCol, moveRow, targetPiece.getTeam());
+        MoveResultEnum res = startPiece.findMoveResult(moveRow, moveCol, targetPiece.getTeam());
 
         if (res != MoveResultEnum.ValidMove) {
             return res;
         } else if (startPiece.getTeam() != currentPlayer) {
             return MoveResultEnum.MovedEnemyPiece;
         } else {
-            board[startCol][startRow] = new Empty();
-            board[endCol][endRow] = startPiece;
+            board[startRow][startCol] = new Empty();
+            board[endRow][endCol] = startPiece;
             if (targetPiece instanceof chess.Pieces.King) {
                 gameOver = true;
                 res = MoveResultEnum.GameOver;

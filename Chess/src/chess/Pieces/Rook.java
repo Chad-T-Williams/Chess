@@ -21,10 +21,10 @@ public class Rook extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
+    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
         boolean res = false;
-        if ((rowMovement == 0 && colMovement != 0)
-                || (rowMovement != 0 && colMovement == 0)) {
+        if ((colMovement == 0 && rowMovement != 0)
+                || (colMovement != 0 && rowMovement == 0)) {
             res = true;
         }
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;

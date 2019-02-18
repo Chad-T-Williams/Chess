@@ -18,32 +18,32 @@ public class Pawn extends Piece {
     }
     
     @Override
-    protected  MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture)
+    protected  MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture)
     {
         boolean res;       
         TeamEnum tm = getTeam();
-        if (tm == TeamEnum.White && colMovement >= 0)
+        if (tm == TeamEnum.White && rowMovement >= 0)
         {
             res = false;
         }
-        else if(tm == TeamEnum.Black && colMovement <= 0 )
+        else if(tm == TeamEnum.Black && rowMovement <= 0 )
         {
             res = false;
         }
         else if (canCapture == false)
         {
-             if (rowMovement != 0)
+             if (colMovement != 0)
              {
                  res = false;
              }
              else{
                 int maxMovement = hasMoved ? 1: 2;
-                res = Math.abs(colMovement) <= maxMovement;
+                res = Math.abs(rowMovement) <= maxMovement;
              }        
         }
         else 
         {
-            res = (Math.abs(colMovement) == 1 && Math.abs(rowMovement) == 1);
+            res = (Math.abs(rowMovement) == 1 && Math.abs(colMovement) == 1);
         }          
         if (res)
         {

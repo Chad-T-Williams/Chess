@@ -16,8 +16,8 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
-        return Math.abs(rowMovement) == Math.abs(colMovement)
+    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
+        return Math.abs(colMovement) == Math.abs(rowMovement)
                 ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
 
     }

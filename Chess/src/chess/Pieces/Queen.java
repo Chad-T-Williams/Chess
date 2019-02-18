@@ -21,13 +21,13 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int colMovement, int rowMovement, boolean canCapture) {
-        rowMovement = Math.abs(rowMovement);
+    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
         colMovement = Math.abs(colMovement);
+        rowMovement = Math.abs(rowMovement);
         boolean res = false;
-        if ((rowMovement == colMovement)
-                || (rowMovement == 0 && colMovement != 0)
-                || (rowMovement != 0 && colMovement == 0)) {
+        if ((colMovement == rowMovement)
+                || (colMovement == 0 && rowMovement != 0)
+                || (colMovement != 0 && rowMovement == 0)) {
             res = true;
         }
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;

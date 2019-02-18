@@ -28,18 +28,18 @@ public abstract class Piece {
         return team;
     }
     
-    protected abstract MoveResultEnum isMoveValid(int colMovement ,int rowMovement, boolean canCapture);
+    protected abstract MoveResultEnum isMoveValid(int rowMovement ,int colMovement, boolean canCapture);
        
-    public MoveResultEnum findMoveResult(int colMovement,int rowMovement, TeamEnum targetTeam)
+    public MoveResultEnum findMoveResult(int rowMovement,int colMovement, TeamEnum targetTeam)
     {
         
-        if (rowMovement == 0 && colMovement == 0) {
+        if (colMovement == 0 && rowMovement == 0) {
             return MoveResultEnum.NoMoveAttempted;
         } else if (targetTeam == getTeam()) {
             return MoveResultEnum.TakenOwnPiece;
         }
         boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);
-        return isMoveValid(colMovement, rowMovement, canCapture);
+        return isMoveValid(rowMovement, colMovement, canCapture);
         
     }
 }
