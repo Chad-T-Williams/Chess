@@ -6,10 +6,10 @@
 package chess;
 
 import chess.Pieces.MoveResultEnum;
+
 import java.util.*;
 
 /**
- *
  * @author chadw
  */
 public class ChessUI {
@@ -31,6 +31,7 @@ public class ChessUI {
         String choice = " ";
         while (!choice.equals("0")) {
             System.out.println("Enter the number of your choice");
+            System.out.println("\t1. To undo the latest move!");
             System.out.println("\t9. To restart the game!");
             System.out.println("\t0. To end the game!");
             System.out.println("Or: To move a piece enter the starting and ending coordinates seperated by a hyphen. Like: A2-A4");
@@ -39,43 +40,54 @@ public class ChessUI {
             System.out.println(game);
             choice = myIn.next();
             try {
-                if (choice.equals("9")) {
-                    game.startGame();
-                } else if (!choice.equals("0")) {
-                    int[] coords = StringParser.getCoordinates(choice);
-                    MoveResultEnum res = game.performMove(coords);
-                    if (null != res) {
-                        switch (res) {
-                            case ValidMove:
-                                System.out.println("The Move was Performed");
-                                break;
-                            case MovedEnemyPiece:
-                                System.out.println("You attempted to move an enemy piece.");
-                                break;
-                            case NoMoveAttempted:
-                                System.out.println("You did not attempt to move a piece.");
-                                break;
-                            case PieceCannotPerformMove:
-                                System.out.println("The movement attempted cannot be performed by the selected Piece.");
-                                break;
-                            case SpaceIsEmpty:
-                                System.out.println("You attempted to move a space with no pieces on it.");
-                                break;
-                            case TakenOwnPiece:
-                                System.out.println("You attempted to take your own piece. This is illegal.");
-                                break;
-                            case AttemptedToSkipOverPiece:
-                                System.out.println("You attempted to skip over a piece.");
-                                break;
-                            case GameOver:
-                                System.out.println("The game is over! The winner was: " + game.getCurrentPlayer());
-                                break;
-                            default:
-                                break;
+                switch (choice) {
+                    case "9":
+                        game.startGame();
+                        break;
+                    case "1":
+                        boolean undoDone = game.undoAction();
+                        if (!undoDone)
+                        {
+                            System.out.println("Nothing to undo");
                         }
-                    }
-
+                        break;
+                    default:
+                        int[] coords = StringParser.getCoordinates(choice);
+                        MoveResultEnum res = game.performMove(coords);
+                        if (null != res) {
+                            switch (res) {
+                                case ValidMove:
+                                    System.out.println("The Move was Performed");
+                                    break;
+                                case MovedEnemyPiece:
+                                    System.out.println("You attempted to move an enemy piece.");
+                                    break;
+                                case NoMoveAttempted:
+                                    System.out.println("You did not attempt to move a piece.");
+                                    break;
+                                case PieceCannotPerformMove:
+                                    System.out.println("The movement attempted cannot be performed by the selected Piece.");
+                                    break;
+                                case SpaceIsEmpty:
+                                    System.out.println("You attempted to move a space with no pieces on it.");
+                                    break;
+                                case TakenOwnPiece:
+                                    System.out.println("You attempted to take your own piece. This is illegal.");
+                                    break;
+                                case AttemptedToSkipOverPiece:
+                                    System.out.println("You attempted to skip over a piece.");
+                                    break;
+                                case GameOver:
+                                    System.out.println("The game is over! The winner was: " + game.getCurrentPlayer());
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        break;
                 }
+
+
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             } catch (InputMismatchException e) {

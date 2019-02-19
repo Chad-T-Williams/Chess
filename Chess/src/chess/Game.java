@@ -8,6 +8,9 @@ package chess;
 import chess.Pieces.MoveResultEnum;
 import chess.Pieces.*;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 /**
  *
  * @author chadw
@@ -16,6 +19,8 @@ public class Game {
 
     private final int boardSize = 8;
     private final Piece[][] board = new Piece[boardSize][boardSize];
+    private Stack<Action> actionsPerformed = new Stack<Action>();
+
     private TeamEnum currentPlayer = TeamEnum.White;
     private boolean gameOver = false;
 
@@ -27,7 +32,7 @@ public class Game {
         return gameOver;
     }
 
-    private void initialiseBoard() {
+    private void initialiseBoard(){
         for (int i = 0; i < boardSize; i++) {
             if (i == 0) {
                 board[i] = setUpSpecialRow(TeamEnum.Black);
@@ -49,6 +54,25 @@ public class Game {
                 }
             }
         }
+    }
+
+    public boolean undoAction()
+    {
+        boolean res = false;
+        if (actionsPerformed.size() != 0)
+        {
+            Action act = actionsPerformed.pop();
+            // Set Piece currently at the "End" to the Start of the Action;
+            int startRow = act.startPos[0];
+            int startCol = act.startPos[1];
+            int endRow = act.endPos[0];
+            int endCol = act.endPos[1];
+            board[startRow][startCol] = board[endRow][endCol];
+            board[endRow][endCol] = act.pieceTaken;
+            currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
+            res = true;
+        }
+        return res;
     }
 
     public TeamEnum getCurrentPlayer() {
@@ -89,6 +113,10 @@ public class Game {
                 res = MoveResultEnum.GameOver;
             } else {
                 currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
+                int[] sPos = new int[]{startRow, startCol};
+                int[] ePos = new int[]{endRow, endCol};
+                Action act = new Action(targetPiece,sPos,ePos);
+                actionsPerformed.push(act);
             }
         }
         return res;
