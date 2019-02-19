@@ -1,0 +1,9 @@
+Change Log:
+> Implemented Undo feature (currently unlimited undos)
+
+Future Changes:
+> Implement Vectors
+> Refactor startPos[0]/[1] to startPos.y/.x
+> (Optional) Refactor for startPos[0] == startPos.x
+> Undo feature feeds into Redo queue for simple Redo implemention
+> Making a legal move empties the Redo queue

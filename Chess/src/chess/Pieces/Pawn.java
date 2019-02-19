@@ -36,7 +36,7 @@ public class Pawn extends Piece {
              {
                  res = false;
              }
-             else{
+             else {
                 int maxMovement = hasMoved ? 1: 2;
                 res = Math.abs(rowMovement) <= maxMovement;
              }        
