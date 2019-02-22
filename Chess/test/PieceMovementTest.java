@@ -30,19 +30,19 @@ public class PieceMovementTest {
     @Test
     public void checkPawnMoveForward() {
         MoveResultEnum res = gme.performMove("A2-A3");
-        assertEquals(res, MoveResultEnum.ValidMove);
+        assertEquals( MoveResultEnum.ValidMove, res);
     }
 
     @Test
     public void checkPawnDoubleMove() {
         MoveResultEnum res = gme.performMove("A2-A4");
-        assertEquals(res, MoveResultEnum.ValidMove);
+        assertEquals(MoveResultEnum.ValidMove,res);
     }
 
     @Test
     public void checkNoDiagonalMove() {
         MoveResultEnum res = gme.performMove("A2-B3");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class PieceMovementTest {
         gme.performMove("A2-A4");
         gme.performMove("B7-B6");
         MoveResultEnum res = gme.performMove("A4-A6");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class PieceMovementTest {
         gme.performMove("A2-A4");
         gme.performMove("B7-B5");
         MoveResultEnum res = gme.performMove("A4-B5");
-        assertEquals(res, MoveResultEnum.ValidMove);
+        assertEquals( MoveResultEnum.ValidMove,res);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class PieceMovementTest {
         gme.performMove("A2-A4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("A4-A5");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);
     }
     @Test
     public void testBishopValidMovement()
@@ -74,7 +74,7 @@ public class PieceMovementTest {
         gme.performMove("B2-B4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("C1-A3");
-        assertEquals(res, MoveResultEnum.ValidMove);        
+        assertEquals(MoveResultEnum.ValidMove,res);        
     }   
     @Test
     public void testBishopInvalidMovement()
@@ -82,7 +82,7 @@ public class PieceMovementTest {
         gme.performMove("C2-C4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("C1-C3");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);  
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);  
     }
     @Test
     public void testKingMovementValid()
@@ -90,7 +90,7 @@ public class PieceMovementTest {
         gme.performMove("D2-D4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("E1-D2");
-        assertEquals(res, MoveResultEnum.ValidMove);
+        assertEquals(MoveResultEnum.ValidMove,res);
     }
     @Test
     public void testKingInvalidMovement()
@@ -98,7 +98,7 @@ public class PieceMovementTest {
         gme.performMove("E2-E4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("E1-E3");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);
     }
     @Test
     public void testQueenValidMovement()
@@ -106,7 +106,7 @@ public class PieceMovementTest {
         gme.performMove("E2-E4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("D1-H5");
-        assertEquals(res, MoveResultEnum.ValidMove);   
+        assertEquals(MoveResultEnum.ValidMove,res);   
     }
     @Test
     public void testQueenInvalidMovement()
@@ -114,7 +114,7 @@ public class PieceMovementTest {
         gme.performMove("D2-D4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("D1-E3");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);   
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);   
         
     }
     @Test
@@ -123,7 +123,7 @@ public class PieceMovementTest {
         gme.performMove("A2-A4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("A1-A3");
-        assertEquals(res, MoveResultEnum.ValidMove);   
+        assertEquals(MoveResultEnum.ValidMove,res);   
     }
     @Test
     public void testRookInvalidMovement()
@@ -131,32 +131,32 @@ public class PieceMovementTest {
         gme.performMove("B2-B4");
         gme.performMove("A7-A5");
         MoveResultEnum res = gme.performMove("A1-B2");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);        
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);        
     }
     @Test
     public void testKnightValidMovement()
     {
         MoveResultEnum res = gme.performMove("B1-A3");
-        assertEquals(res, MoveResultEnum.ValidMove);
+        assertEquals(MoveResultEnum.ValidMove,res);
     }
     @Test
     public void testKnightInValidMovement()
     {
         MoveResultEnum res = gme.performMove("B1-B3");
-        assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
+        assertEquals(MoveResultEnum.PieceCannotPerformMove,res);
     }
                         
     @Test
     public void testCantCaptureOwnPiece()
     {
         MoveResultEnum res = gme.performMove("A1-A2");
-        assertEquals(res, MoveResultEnum.TakenOwnPiece);
+        assertEquals(MoveResultEnum.TakenOwnPiece,res);
     }
     @Test
     public void testCantSkipOwnPiece()
     {
         MoveResultEnum res = gme.performMove("A1-A3");
-        assertEquals(res, MoveResultEnum.AttemptedToSkipOverPiece);
+        assertEquals(MoveResultEnum.AttemptedToSkipOverPiece,res);
     }
            
 }

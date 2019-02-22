@@ -11,7 +11,6 @@ import java.awt.*;
  */
 public class Pawn extends Piece {
     
-    private boolean hasMoved = false;
     public Pawn(TeamEnum pt)
     {
         super(pt, true);
@@ -39,23 +38,15 @@ public class Pawn extends Piece {
                  res = false;
              }
              else {
-                int maxMovement = hasMoved ? 1: 2;
+                int maxMovement = getTimesMoved() == 0 ? 2 : 1;
                 res = Math.abs(rowMovement) <= maxMovement;
              }        
         }
         else 
         {
             res = (Math.abs(rowMovement) == 1 && Math.abs(colMovement) == 1);
-        }          
-        if (res)
-        {
-            hasMoved = true;
-            return MoveResultEnum.ValidMove;
         }
-        else
-        {
-            return MoveResultEnum.PieceCannotPerformMove;
-        }
+        return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }    
     
     @Override

@@ -13,6 +13,7 @@ import java.awt.*;
 public abstract class Piece {
     private final TeamEnum team;
     private boolean hasCollision;
+    private int timesMoved = 0;
     
     public Piece(TeamEnum tm, boolean canSkip)
     {
@@ -40,7 +41,23 @@ public abstract class Piece {
             return MoveResultEnum.TakenOwnPiece;
         }
         boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);
-        return isMoveValid(move, canCapture);
-        
+        MoveResultEnum res = isMoveValid(move, canCapture);
+        if (res == MoveResultEnum.ValidMove)
+        {
+            moveOnce();
+        }
+        return res;
+    }
+    public int getTimesMoved()
+    {
+        return timesMoved;
+    }
+    public void moveOnce()
+    {
+        timesMoved++;
+    }
+    public void removeMove()
+    {
+        timesMoved--;
     }
 }

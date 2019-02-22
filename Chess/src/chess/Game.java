@@ -9,8 +9,9 @@ import chess.Pieces.MoveResultEnum;
 import chess.Pieces.*;
 import java.awt.*;
 
-import java.util.ArrayList;
 import java.util.Stack;
+import java.util.Queue;
+
 
 /**
  *
@@ -20,7 +21,8 @@ public class Game {
 
     private final int boardSize = 8;
     private final Piece[][] board = new Piece[boardSize][boardSize];
-    private Stack<Action> actionsPerformed = new Stack<Action>();
+    private Stack<Action> actionsPerformed = new Stack<>();
+    //private Queue<Action> redoActions = new Queue<>();
 
     private TeamEnum currentPlayer = TeamEnum.White;
     private boolean gameOver = false;
@@ -56,17 +58,27 @@ public class Game {
             }
         }
     }
-
+    public boolean redoAction()
+    {
+        boolean res = false;
+      //  if (!redoActions.isEmpty())
+        //{
+            
+        //}
+        return res;
+    }
     public boolean undoAction()
     {
         boolean res = false;
-        if (actionsPerformed.isEmpty())
+        if (!actionsPerformed.isEmpty())
         {
             Action act = actionsPerformed.pop();
             // Set Piece currently at the "End" to the Start of the Action;
             Point startP = act.startPos;
             Point endP = act.endPos;
-            board[startP.y][startP.x] = board[endP.y][endP.x];
+            Piece prevPiece = board[endP.y][endP.x];
+            prevPiece.removeMove();
+            board[startP.y][startP.x] = prevPiece;
             board[endP.y][endP.x] = act.pieceTaken;
             currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
             res = true;
@@ -112,7 +124,6 @@ public class Game {
                 res = MoveResultEnum.GameOver;
             } else {
                 currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
-
                 Action act = new Action(targetPiece,startP,endP);
                 actionsPerformed.push(act);
             }
@@ -138,7 +149,8 @@ public class Game {
             if (moveY == 0 && moveX == 0) {
                 // Don't check start Piece
                 break;
-            }            
+            }          
+            System.out.println("");
             Piece currPiece = board[startPoint.y + moveY][startPoint.x + moveX];
             if (!(currPiece instanceof chess.Pieces.Empty)) {
                 // If the piece we're looking at isn't empty it means we tried to skip over a piece.

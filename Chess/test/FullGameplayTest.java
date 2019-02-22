@@ -39,6 +39,6 @@ public class FullGameplayTest {
         gme.performMove("D6-C7");
         gme.performMove("A3-B2");
         MoveResultEnum res = gme.performMove("C7-D8");
-        assertEquals(res, MoveResultEnum.GameOver);
+        assertEquals(MoveResultEnum.GameOver,res);
     }
 }
