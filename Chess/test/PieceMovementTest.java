@@ -29,175 +29,134 @@ public class PieceMovementTest {
 
     @Test
     public void checkPawnMoveForward() {
-        int[] pwnMove = StringParser.getCoordinates("A2-A3");
-        MoveResultEnum res = gme.performMove(pwnMove);
+        MoveResultEnum res = gme.performMove("A2-A3");
         assertEquals(res, MoveResultEnum.ValidMove);
     }
 
     @Test
     public void checkPawnDoubleMove() {
-        int[] pwnMove = StringParser.getCoordinates("A2-A4");
-        MoveResultEnum res = gme.performMove(pwnMove);
+        MoveResultEnum res = gme.performMove("A2-A4");
         assertEquals(res, MoveResultEnum.ValidMove);
     }
 
     @Test
     public void checkNoDiagonalMove() {
-        int[] pwnMove = StringParser.getCoordinates("A2-B3");
-        MoveResultEnum res = gme.performMove(pwnMove);
+        MoveResultEnum res = gme.performMove("A2-B3");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
     }
 
     @Test
     public void checkPawnOnlyDoubleMoveOnce() {
-        int[] whiteMove1 = StringParser.getCoordinates("A2-A4");
-        int[] blackMove1 = StringParser.getCoordinates("B7-B6");
-        int[] whiteMove2 = StringParser.getCoordinates("A4-A6");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("A2-A4");
+        gme.performMove("B7-B6");
+        MoveResultEnum res = gme.performMove("A4-A6");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
     }
 
     @Test
     public void testPawnDiagonalCapture() {
-        int[] whiteMove1 = StringParser.getCoordinates("A2-A4");
-        int[] blackMove1 = StringParser.getCoordinates("B7-B5");
-        int[] whiteMove2 = StringParser.getCoordinates("A4-B5");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("A2-A4");
+        gme.performMove("B7-B5");
+        MoveResultEnum res = gme.performMove("A4-B5");
         assertEquals(res, MoveResultEnum.ValidMove);
     }
 
     @Test
     public void testPawnStraightCapture() {
-        int[] whiteMove1 = StringParser.getCoordinates("A2-A4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("A4-A5");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("A2-A4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("A4-A5");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
     }
     @Test
     public void testBishopValidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("B2-B4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("C1-A3");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("B2-B4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("C1-A3");
         assertEquals(res, MoveResultEnum.ValidMove);        
     }   
     @Test
     public void testBishopInvalidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("C2-C4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("C1-C3");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("C2-C4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("C1-C3");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);  
     }
     @Test
     public void testKingMovementValid()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("D2-D4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("E1-D2");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("D2-D4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("E1-D2");
         assertEquals(res, MoveResultEnum.ValidMove);
     }
     @Test
     public void testKingInvalidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("E2-E4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("E1-E3");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("E2-E4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("E1-E3");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
     }
     @Test
     public void testQueenValidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("E2-E4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("D1-H5");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("E2-E4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("D1-H5");
         assertEquals(res, MoveResultEnum.ValidMove);   
     }
     @Test
     public void testQueenInvalidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("D2-D4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("D1-E3");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("D2-D4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("D1-E3");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);   
         
     }
     @Test
     public void testRookValidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("A2-A4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("A1-A3");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("A2-A4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("A1-A3");
         assertEquals(res, MoveResultEnum.ValidMove);   
     }
     @Test
     public void testRookInvalidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("B2-B4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("A1-B2");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        MoveResultEnum res = gme.performMove(whiteMove2);
+        gme.performMove("B2-B4");
+        gme.performMove("A7-A5");
+        MoveResultEnum res = gme.performMove("A1-B2");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);        
     }
     @Test
     public void testKnightValidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("B1-A3");
-        MoveResultEnum res = gme.performMove(whiteMove1);
+        MoveResultEnum res = gme.performMove("B1-A3");
         assertEquals(res, MoveResultEnum.ValidMove);
     }
     @Test
     public void testKnightInValidMovement()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("B1-B3");
-        MoveResultEnum res = gme.performMove(whiteMove1);
+        MoveResultEnum res = gme.performMove("B1-B3");
         assertEquals(res, MoveResultEnum.PieceCannotPerformMove);
     }
                         
     @Test
     public void testCantCaptureOwnPiece()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("A1-A2");
-        MoveResultEnum res = gme.performMove(whiteMove1);
+        MoveResultEnum res = gme.performMove("A1-A2");
         assertEquals(res, MoveResultEnum.TakenOwnPiece);
     }
     @Test
     public void testCantSkipOwnPiece()
     {
-        int[] whiteMove1 = StringParser.getCoordinates("A1-A3");
-        MoveResultEnum res = gme.performMove(whiteMove1);
+        MoveResultEnum res = gme.performMove("A1-A3");
         assertEquals(res, MoveResultEnum.AttemptedToSkipOverPiece);
     }
-            
-
+           
 }

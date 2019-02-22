@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-
+import java.awt.*;
 /**
  *
  * @author chadw
@@ -21,8 +21,10 @@ public class Rook extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
         boolean res = false;
+        int rowMovement = move.y;
+        int colMovement = move.x;
         if ((colMovement == 0 && rowMovement != 0)
                 || (colMovement != 0 && rowMovement == 0)) {
             res = true;

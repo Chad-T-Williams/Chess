@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
+import java.awt.*;
 
 /**
  *
@@ -28,18 +29,18 @@ public abstract class Piece {
         return team;
     }
     
-    protected abstract MoveResultEnum isMoveValid(int rowMovement ,int colMovement, boolean canCapture);
+    protected abstract MoveResultEnum isMoveValid(Point move, boolean canCapture);
        
-    public MoveResultEnum findMoveResult(int rowMovement,int colMovement, TeamEnum targetTeam)
+    public MoveResultEnum findMoveResult(Point move, TeamEnum targetTeam)
     {
         
-        if (colMovement == 0 && rowMovement == 0) {
+        if (move.x == 0 && move.y == 0) {
             return MoveResultEnum.NoMoveAttempted;
         } else if (targetTeam == getTeam()) {
             return MoveResultEnum.TakenOwnPiece;
         }
         boolean canCapture = (targetTeam !=  TeamEnum.NoTeam);
-        return isMoveValid(rowMovement, colMovement, canCapture);
+        return isMoveValid(move, canCapture);
         
     }
 }

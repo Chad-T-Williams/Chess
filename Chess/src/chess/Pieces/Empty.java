@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
+import java.awt.*;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Empty extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
         return MoveResultEnum.SpaceIsEmpty;
     }
 

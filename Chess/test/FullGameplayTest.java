@@ -30,24 +30,15 @@ public class FullGameplayTest {
 
     @Test
     public void testGameOver() {
-        int[] whiteMove1 = StringParser.getCoordinates("D2-D4");
-        int[] blackMove1 = StringParser.getCoordinates("A7-A5");
-        int[] whiteMove2 = StringParser.getCoordinates("D4-D5");
-        int[] blackMove2 = StringParser.getCoordinates("A5-A4");
-        int[] whiteMove3 = StringParser.getCoordinates("D5-D6");
-        int[] blackMove3 = StringParser.getCoordinates("A4-A3");
-        int[] whiteMove4 = StringParser.getCoordinates("D6-C7");
-        int[] blackMove4 = StringParser.getCoordinates("A3-B2");
-        int[] whiteMove5 = StringParser.getCoordinates("C7-D8");
-        gme.performMove(whiteMove1);
-        gme.performMove(blackMove1);
-        gme.performMove(whiteMove2);
-        gme.performMove(blackMove2);
-        gme.performMove(whiteMove3);
-        gme.performMove(blackMove3);
-        gme.performMove(whiteMove4);
-        gme.performMove(blackMove4);
-        MoveResultEnum res = gme.performMove(whiteMove5);
+        gme.performMove("D2-D4");
+        gme.performMove("A7-A5");
+        gme.performMove("D4-D5");
+        gme.performMove("A5-A4");
+        gme.performMove("D5-D6");
+        gme.performMove("A4-A3");
+        gme.performMove("D6-C7");
+        gme.performMove("A3-B2");
+        MoveResultEnum res = gme.performMove("C7-D8");
         assertEquals(res, MoveResultEnum.GameOver);
     }
 }

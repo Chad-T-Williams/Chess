@@ -9,6 +9,7 @@ package chess.Pieces;
  *
  * @author chadw
  */
+import java.awt.*;
 public class Queen extends Piece {
 
     public Queen(TeamEnum pt) {
@@ -21,9 +22,9 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
-        colMovement = Math.abs(colMovement);
-        rowMovement = Math.abs(rowMovement);
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
+        int colMovement = Math.abs(move.x);
+        int rowMovement = Math.abs(move.y);
         boolean res = false;
         if ((colMovement == rowMovement)
                 || (colMovement == 0 && rowMovement != 0)

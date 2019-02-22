@@ -52,8 +52,7 @@ public class ChessUI {
                         }
                         break;
                     default:
-                        int[] coords = StringParser.getCoordinates(choice);
-                        MoveResultEnum res = game.performMove(coords);
+                        MoveResultEnum res = game.performMove(choice);
                         if (null != res) {
                             switch (res) {
                                 case ValidMove:

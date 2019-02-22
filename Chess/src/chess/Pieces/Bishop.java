@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-
+import java.awt.*;
 /**
  *
  * @author chadw
@@ -16,8 +16,8 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
-        return Math.abs(colMovement) == Math.abs(rowMovement)
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
+        return Math.abs(move.x) == Math.abs(move.y)
                 ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
 
     }

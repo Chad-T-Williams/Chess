@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
+import java.awt.*;
 
 /**
  *
@@ -16,8 +17,8 @@ public class King extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
-        boolean res = (Math.abs(colMovement) <= 1 && Math.abs(rowMovement) <= 1);
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
+        boolean res = (Math.abs(move.x) <= 1 && Math.abs(move.y) <= 1);
         return res ? MoveResultEnum.ValidMove : MoveResultEnum.PieceCannotPerformMove;
     }
 

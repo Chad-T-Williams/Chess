@@ -1,13 +1,14 @@
 package chess;
 import chess.Pieces.*;
+import java.awt.*;
 
 public class Action {
 
     public final Piece pieceTaken;
-    public final int[] startPos;
-    public final int[] endPos;
+    public final Point startPos;
+    public final Point endPos;
 
-    public Action(Piece pT, int[] sP, int[] eP)
+    public Action(Piece pT, Point sP, Point eP)
     {
         pieceTaken = pT;
         startPos = sP;

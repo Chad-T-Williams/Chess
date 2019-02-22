@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package chess.Pieces;
-
+import java.awt.*;
 /**
  *
  * @author chadw
@@ -16,9 +16,9 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected MoveResultEnum isMoveValid(int rowMovement, int colMovement, boolean canCapture) {
-        int cabs = Math.abs(colMovement);
-        int rabs = Math.abs(rowMovement);
+    protected MoveResultEnum isMoveValid(Point move, boolean canCapture) {
+        int cabs = Math.abs(move.x);
+        int rabs = Math.abs(move.y);
         int highValue = cabs > rabs ? cabs : rabs;
         int lowValue = cabs < rabs ? cabs : rabs;
         boolean res = (highValue == 2 && lowValue == 1);
