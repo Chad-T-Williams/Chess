@@ -32,6 +32,8 @@ public class ChessUI {
         while (!choice.equals("0")) {
             System.out.println("Enter the number of your choice");
             System.out.println("\t1. To undo the latest move!");
+            System.out.println("\t2. To redo the most recent undone move!");
+
             System.out.println("\t9. To restart the game!");
             System.out.println("\t0. To end the game!");
             System.out.println("Or: To move a piece enter the starting and ending coordinates seperated by a hyphen. Like: A2-A4");
@@ -50,6 +52,15 @@ public class ChessUI {
                         {
                             System.out.println("Nothing to undo");
                         }
+                        break;
+                    case "2":
+                        boolean redoAction = game.redoAction();
+                        if (!redoAction)
+                        {
+                            System.out.println("Nothing to redo");
+                        }
+                        break;
+                    case "0":
                         break;
                     default:
                         MoveResultEnum res = game.performMove(choice);

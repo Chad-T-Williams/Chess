@@ -10,7 +10,7 @@ import chess.Pieces.*;
 import java.awt.*;
 
 import java.util.Stack;
-import java.util.Queue;
+import java.util.*;
 
 
 /**
@@ -22,7 +22,7 @@ public class Game {
     private final int boardSize = 8;
     private final Piece[][] board = new Piece[boardSize][boardSize];
     private Stack<Action> actionsPerformed = new Stack<>();
-    //private Queue<Action> redoActions = new Queue<>();
+    private Queue<Action> redoActions = new ArrayDeque<>();
 
     private TeamEnum currentPlayer = TeamEnum.White;
     private boolean gameOver = false;
@@ -58,13 +58,26 @@ public class Game {
             }
         }
     }
+    
     public boolean redoAction()
     {
         boolean res = false;
-      //  if (!redoActions.isEmpty())
-        //{
+        if (!redoActions.isEmpty())
+        {
+            Action act = redoActions.remove();
+            // Set Piece currently at the "End" to the Start of the Action;
+            Point startP = act.startPos;
+            Point endP = act.endPos;
+            Piece movingPiece = board[startP.y][startP.x];
             
-        //}
+            movingPiece.moveOnce();
+            
+            board[startP.y][startP.x] = new Empty();
+            board[endP.y][endP.x] = movingPiece;
+            currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
+            res = true;
+            actionsPerformed.push(act);
+        }
         return res;
     }
     public boolean undoAction()
@@ -77,11 +90,14 @@ public class Game {
             Point startP = act.startPos;
             Point endP = act.endPos;
             Piece prevPiece = board[endP.y][endP.x];
+            
             prevPiece.removeMove();
+            
             board[startP.y][startP.x] = prevPiece;
             board[endP.y][endP.x] = act.pieceTaken;
             currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
             res = true;
+            redoActions.add(act);
         }
         return res;
     }
@@ -94,7 +110,6 @@ public class Game {
         Point[] coords = StringParser.getCoordinates(s);
         return performMove(coords);
     }
-    
     public MoveResultEnum performMove(Point[] moveCoords) {
         if (gameOver) {
             return MoveResultEnum.GameOver;
@@ -126,11 +141,11 @@ public class Game {
                 currentPlayer = (currentPlayer == TeamEnum.White ? TeamEnum.Black : TeamEnum.White);
                 Action act = new Action(targetPiece,startP,endP);
                 actionsPerformed.push(act);
+                redoActions.clear();
             }
         }
         return res;
     }
-
     private boolean checkCollisionOccurence(Point startPoint, Point movePoint) {
         // Effectively checks from furthest position and goes inwards.
         int moveX = movePoint.x;
